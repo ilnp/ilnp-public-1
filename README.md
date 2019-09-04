@@ -30,9 +30,11 @@ There are two parts to the software:
 
 Both are needed.
 
+The link to the github repository is [here](https://github.com/ilnp/ilnp-public-1).
+
 ## Thank you
 
-My thanks to you for your interest in ILNP!
+My thanks to you for your interest in [ILNP](https://ilnp.cs.st-andrews.ac.uk/)!
 
 Cheers,
 --/Saleem
