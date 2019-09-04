@@ -29,3 +29,11 @@ There are two parts to the software:
 2. A modifictaion to glibc so that names for nodes in `/etc/hosts` can be mapped to ILNP Identifier-Locator Vector (I-IV) values, and passed up to applications in `struct addrinfo` via calls to `getaddrinfo(3)`.
 
 Both are needed.
+
+## Thank you
+
+My thanks to you for your interest in ILNP!
+
+Cheers,
+--/Saleem
+_Saleem Bhatti, ILNP Project Lead_
