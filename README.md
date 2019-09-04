@@ -1,5 +1,5 @@
 # ilnp-public-1
-## ILNP Software
+## [https://ilnp.cs.st-andrews.ac.uk/](ILNP) Software
 
 This repository contains experimental, prototype software for the Identifier Locator Network Protocol (ILNP) project. The main web site for ILNP is at [https://ilnp.cs.st-andrews.ac.uk/](https://ilnp.cs.st-andrews.ac.uk/).
 
