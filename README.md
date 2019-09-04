@@ -36,4 +36,4 @@ The link to the github repository is [here](https://github.com/ilnp/ilnp-public-
 
 My thanks to you for your interest in [ILNP](https://ilnp.cs.st-andrews.ac.uk/)!
 
-_Saleem Bhatti, ILNP Project Lead_
+_Saleem Bhatti, ILNP Project Lead_, ilnp-admin at st-andrews.ac.uk
