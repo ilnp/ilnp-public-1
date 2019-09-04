@@ -18,9 +18,9 @@ This code was also demonstrated at [IETF104/Prague](https://blogs.cisco.com/deve
 
 ## Code
 
-There are two parts to thw software:
+There are two parts to the software:
 
 1. Extensions to the Linix kernel.
-2. A modifictaion to glibc so that names for nodes in /etc/hosts can be mapped to ILNP Identifier-Locator Vector (I-IV) values, and passed up to applicatiosn via `getaddrinfo()` in `struct addrinfo`.
+2. A modifictaion to glibc so that names for nodes in `/etc/hosts` can be mapped to ILNP Identifier-Locator Vector (I-IV) values, and passed up to applications in `struct addrinfo` via calls to `getaddrinfo(3)`.
 
 Both are needed.
