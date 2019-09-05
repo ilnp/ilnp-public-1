@@ -1,7 +1,7 @@
-# ilnp-public-1
-## [ILNP](https://ilnp.cs.st-andrews.ac.uk/) Software (version ilnp-public-1, 05 Sep 2019)
+# ILNP Software (version: ilnp-public-1 05 Sep 2019)
+## The first [ILNP](https://ilnp.cs.st-andrews.ac.uk/) software release
 
-This repository contains experimental, prototype software for the Identifier Locator Network Protocol (ILNP) project. The main web site for ILNP is at [https://ilnp.cs.st-andrews.ac.uk/](https://ilnp.cs.st-andrews.ac.uk/).
+This repository contains experimental software implementing a prototype of the Identifier Locator Network Protocol (ILNP). The main web site for ILNP is at [https://ilnp.cs.st-andrews.ac.uk/](https://ilnp.cs.st-andrews.ac.uk/).
 
 The intention of this software release is to support the results published in the following academic papers:
 
@@ -11,7 +11,7 @@ The intention of this software release is to support the results published in th
 * S. N. Bhatti, D. Phoomikiattisak, B. Simpson. [IP without IP addresses](https://doi.org/10.1145/3012695.3012701). AINTEC 2016 - 12th Asian Internet Engineering Conf.. Bangkok, Thailand. Nov/Dec 2016.
 * D. Phoomikiatissak, S. N. Bhatti. [Mobility as a First Class Function](https://doi.org/10.1109/WiMOB.2015.7348051). WiMob 2015 - 11th IEEE Intl. Conf. Wireless and Mobile Computing, Networking and Communications. Abu Dhabi, UAE. Oct 2015.
 
-The code here is an up-to-date version of the codebase used in the experiemnts that produced the results in those papers.
+The code here is an up-to-date version of the codebase used in the experiemnts documented in those papers.
 
 This code was also demonstrated at [IETF104/Prague](https://blogs.cisco.com/developer/prague-ietf-hackathon) and [IETF105/Montreal](https://trac.ietf.org/trac/ietf/meeting/wiki/105hackathon). 
 
