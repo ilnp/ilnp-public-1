@@ -15,7 +15,7 @@ The intention of this software release is to support the results published in th
 
 The code here is an up-to-date version of the codebase used in the experiemnts documented in those papers.
 
-This code was also demonstrated at [IETF104/Prague](https://blogs.cisco.com/developer/prague-ietf-hackathon) and [IETF105/Montreal](https://trac.ietf.org/trac/ietf/meeting/wiki/105hackathon). 
+This is the codebase that was also used for the work and demonstrations at [IETF104/Prague](https://blogs.cisco.com/developer/prague-ietf-hackathon) and [IETF105/Montreal](https://trac.ietf.org/trac/ietf/meeting/wiki/105hackathon). 
 
 All code contributed by the authors is Copyright (C) Saleem N. Bhatti, Ryo Yanagida, Khawar Shezhad, and Ditchaphong Phoomikiatissak.
 
