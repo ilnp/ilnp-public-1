@@ -36,7 +36,7 @@ There are two parts to the software:
 1. A modifictaion to `glibc` ([here - ilnp-glibc-1](https://github.com/ilnp/ilnp-glibc-1)) so that names for nodes in `/etc/hosts` can be mapped to ILNP Identifier-Locator Vector (I-LV) values, and passed up to applications in `struct addrinfo` via calls to `getaddrinfo(3)`.
 2. Extensions to the Linux kernel v4.9 LTS ([here - ilnp-public-1](https://github.com/ilnp/ilnp-public-1)) to implement the ILNP functionality.
 
-Both are needed. Get ilnp-glibc-1 first, compile it, and install it. Then build the kernel in ilnp-public-1 using the new version of glibc.
+Both are needed. First, get the modified version of `glibc` in ilnp-glibc-1, compile it, and install it. Then, build the kernel in ilnp-public-1, using the new version of `glibc`.
 
 ## Thank you
 
