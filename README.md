@@ -32,9 +32,9 @@ Both are needed. Get ilnp-glibc-1 first, compile it, and install it. The build t
 
 ## This is not supported software
 
-Alas, and woe, I can not offer any support for this software. This is the output of ongoing work in PhD projects. Please be aware that you use this at your own risk.
+Alas and woe, I can not offer any support for this software. It is the output of ongoing work in PhD projects that I have supervised. Please be aware that you use this software at your own risk.
 
-I continue to seek support for progressing ILNP in various ways, so my intention is to improve and update this, but I cannot really give any definite timescales and roadmaps at present.
+I continue to seek funding for progressing ILNP in various ways. So my intention is to improve and update this sofwtare, but I cannot  give any definite timescales and roadmaps at present.
 
 ## Thank you
 
