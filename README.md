@@ -1,4 +1,6 @@
-# ILNP Software (version: ilnp-public-1 05 Sep 2019)
+# ILNP software version: ilnp-public-1
+### 05 Sep 2019
+
 ## The first [ILNP](https://ilnp.cs.st-andrews.ac.uk/) software release
 
 This repository contains experimental software implementing a prototype of the Identifier Locator Network Protocol (ILNP). The main web site for ILNP is at [https://ilnp.cs.st-andrews.ac.uk/](https://ilnp.cs.st-andrews.ac.uk/).
