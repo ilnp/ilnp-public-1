@@ -25,15 +25,19 @@ If you download the code, I will be grateful if you could answer [this questionn
 
 There are two parts to the software:
 
-1. Extensions to the Linux kernel v4.9 LTS.
-2. A modifictaion to glibc so that names for nodes in `/etc/hosts` can be mapped to ILNP Identifier-Locator Vector (I-IV) values, and passed up to applications in `struct addrinfo` via calls to `getaddrinfo(3)`.
+1. A modifictaion to `glibc` ([here - ilnp-glibc-1](https://github.com/ilnp/ilnp-glibc-1)) so that names for nodes in `/etc/hosts` can be mapped to ILNP Identifier-Locator Vector (I-IV) values, and passed up to applications in `struct addrinfo` via calls to `getaddrinfo(3)`.
+2. Extensions to the Linux kernel v4.9 LTS ([here - ilnp-public-1](https://github.com/ilnp/ilnp-public-1)) to implement the ILNP functionality.
 
-Both are needed.
+Both are needed. Get ilnp-glibc-1 first, compile it, and install it. The build the kernel in ilnp-public-1 using the new version of glibc.
 
-The link to the github repository is [here](https://github.com/ilnp/ilnp-public-1).
+## This is not supported software
+
+Alas, and woe, I can not offer any support for this software. This is the output of ongoing work in PhD projects. Please be aware that you use this at your own risk.
+
+I continue to seek support for progressing ILNP in various ways, so my intention is to improve and update this, but I cannot really give any definite timescales and roadmaps at present.
 
 ## Thank you
 
-My thanks to you for your interest in [ILNP](https://ilnp.cs.st-andrews.ac.uk/)!
+My thanks to you for your interest in [ILNP](https://ilnp.cs.st-andrews.ac.uk/)! I hope you enjoy trying it out.
 
 _Saleem Bhatti, ILNP Project Lead_, ilnp-admin at st-andrews.ac.uk
