@@ -21,7 +21,7 @@ All code contributed by the authors is Copyright (C) Saleem N. Bhatti, Ryo Yanag
 
 ## Questionnaire
 
-If you download the code, I will be grateful if you could complete [this questionnaire](https://standrews.eu.qualtrics.com/jfe/form/SV_eWiVRfNRBnqTBXL), please! The whole thing should take only ~5 minutes of your time. If you do not want to fill in all of it, please do give responses just to questions 2b and 2c. The data could be _extremely helpful_ to me when I apply for additional support for further development of ILNP. Thank you!
+If you download the code, I will be grateful if you could complete [this questionnaire](https://standrews.eu.qualtrics.com/jfe/form/SV_eWiVRfNRBnqTBXL), please. The whole thing should take only ~5 minutes of your time. If you do not want to fill in all of it, please do give responses just to questions 2b and 2c. The data could be _extremely helpful_ to me when I apply for additional support for further development of ILNP. Thank you!
 
 ## This is not supported software
 
