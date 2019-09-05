@@ -23,6 +23,12 @@ All code contributed by the authors is Copyright (C) Saleem N. Bhatti, Ryo Yanag
 
 If you download the code, I will be grateful if you could answer [this questionnaire](https://standrews.eu.qualtrics.com/jfe/form/SV_eWiVRfNRBnqTBXL), please! The whole thing should take only ~5 minutes of your time. If you do not want to fill in all of it, please do give responses just to questions 2b and 2c. The data could be _extremely helpful_ to me when I apply for additional support for further development of ILNP. Thank you!
 
+## This is not supported software
+
+Alas and woe, I can not offer any support for this software. It is the output of ongoing work in PhD projects that I have supervised. Please be aware that you use this software at your own risk.
+
+I continue to seek funding for progressing ILNP in various ways. So my intention is to improve and update this sofwtare, but I cannot  give any definite timescales and roadmaps at present.
+
 ## Code
 
 There are two parts to the software:
@@ -31,12 +37,6 @@ There are two parts to the software:
 2. Extensions to the Linux kernel v4.9 LTS ([here - ilnp-public-1](https://github.com/ilnp/ilnp-public-1)) to implement the ILNP functionality.
 
 Both are needed. Get ilnp-glibc-1 first, compile it, and install it. Then build the kernel in ilnp-public-1 using the new version of glibc.
-
-## This is not supported software
-
-Alas and woe, I can not offer any support for this software. It is the output of ongoing work in PhD projects that I have supervised. Please be aware that you use this software at your own risk.
-
-I continue to seek funding for progressing ILNP in various ways. So my intention is to improve and update this sofwtare, but I cannot  give any definite timescales and roadmaps at present.
 
 ## Thank you
 
