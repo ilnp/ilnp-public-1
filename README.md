@@ -1,5 +1,5 @@
 # ILNP software version: ilnp-public-1
-### 05 Sep 2019
+### 05 September 2019
 
 ## The first [ILNP](https://ilnp.cs.st-andrews.ac.uk/) software release
 
