@@ -13,7 +13,7 @@ The intention of this software release is to support the results published in th
 * S. N. Bhatti, D. Phoomikiattisak, B. Simpson. [IP without IP addresses](https://doi.org/10.1145/3012695.3012701). AINTEC 2016 - 12th Asian Internet Engineering Conf.. Bangkok, Thailand. Nov/Dec 2016.
 * D. Phoomikiatissak, S. N. Bhatti. [Mobility as a First Class Function](https://doi.org/10.1109/WiMOB.2015.7348051). WiMob 2015 - 11th IEEE Intl. Conf. Wireless and Mobile Computing, Networking and Communications. Abu Dhabi, UAE. Oct 2015.
 
-The code here is an up-to-date version of the codebase used in the experiemnts documented in those papers.
+The code here is an up-to-date version of the codebase used in the experiments documented in those papers.
 
 This is the codebase that was also used for the work and demonstrations at [IETF104/Prague](https://blogs.cisco.com/developer/prague-ietf-hackathon) and [IETF105/Montreal](https://trac.ietf.org/trac/ietf/meeting/wiki/105hackathon). 
 
