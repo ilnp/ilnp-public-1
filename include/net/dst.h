@@ -465,12 +465,12 @@ static inline int dst_neigh_output(struct dst_entry *dst, struct neighbour *n,
 
 	hh = &n->hh;
 	if ((n->nud_state & NUD_CONNECTED) && hh->hh_len){
-		printk("[dst.h] dst_neigh_output(): neigh_hh_output(hh, skb) case\n");
+		/* printk("[dst.h] dst_neigh_output(): neigh_hh_output(hh, skb) case\n"); */
 		return neigh_hh_output(hh, skb);
 	}
 	else{
-		printk("[dst.h] dst_neigh_output(): n->output(n,skb) case\n");
-		printk("[dst.h] dst_neigh_output(): n->output(n,skb) = %pF\n",n->output);
+		/* printk("[dst.h] dst_neigh_output(): n->output(n,skb) case\n"); */
+		/* printk("[dst.h] dst_neigh_output(): n->output(n,skb) = %pF\n",n->output); */
 		return n->output(n, skb);
 	}
 }
