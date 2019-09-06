@@ -1,0 +1,142 @@
+ILNP guideline node configuration instructions for ilnp-public-1
+06 September 2019
+
+Copyright (C) 2019 Ryo Yanagida and Saleem N. Bhatti.
+
+First, install Debian 9.9 as described in README-ilnp_install.txt.
+
+In the text below, '$#' is the prompt.
+
+1.0 Configure interfaces for disabling offload processing:
+
+    $# ethtool -K <interface> gso off gro off tso off tx off rx off sg off tx-gre-csum-segmentation off tx-gre-segmentation off tx-gso-partial off
+
+		1.1 (optional) /etc/network/interfaces can have offloading setting set -> ifup must be used to take effect
+
+    1.2 Disable privacy extensions e.g. with NetworkManager installed, configure NetworkManager.conf [connection] clause to set
+      ipv6.ip6_privacy=0
+
+2.0 Configure I-LV values in /etc/hosts
+    These are used for initial session establishment. Example /etc/hosts
+    entries are given below.
+
+    # Start of example /etc/hosts entries.
+    # The format of an IL-V in /etc/hosts is:
+    #   LLLL-LLLL-LLLL-LLLL.NNNN+NNNN+NNNN+NNNN   hostname
+    # where:
+    #   LLLL are hex digits for 16-bits of a L64 value
+    #   NNNN are hex digits for 16-bits of a NID value
+    #
+    # 2001:2:::/48 is for benchmarking (assigned to the IETF BMWG)
+
+    2001-2-0-aa.0+0+0+a1      ilnp-host-a1
+    2001-2-0-aa.0+0+0+a2      ilnp-host-a2
+    2001-2-0-bb.0+0+0+b1      ilnp-host-b1
+    2001-2-0-bb.0+0+0+b2      ilnp-host-b1
+
+    # End of example /etc/hosts entries.
+
+3.0 Configure sysctl either via /etc/sysctl.d or using 'sysctl -w', or anywhere else that works for your configuration.
+
+    3.1 ICMP user id ranges set from 0 to max (429436729):
+
+        net.ipv4.ping_group_range=0 429436729
+
+    3.2 RS timings:
+
+        net.ipv6.conf.all.router_solicitation_delay=0
+        net.ipv6.conf.all.router_solicitation_interval=1
+
+    3.3 Optimistic DAD setting (this may need to be set explicitly for
+        each interface, i.e. replace "all" with the interface name):
+
+        net.ipv6.conf.all.optimistic_dad=1
+
+
+    3.4 (Alternative)
+        All of the above could be templated using 'interface templates' in
+        '/etc/interfaces.d/' configs see 'man 5 interfaces'
+        e.g.
+            file /etc/network/interfaces.d/00-ilnp_sysctl.conf can contain the following:
+
+            iface ilnp inet6 auto
+                pre-up sysctl -w net.ipv4.ping_group_range="0 429436729"
+                pre-up sysctl -w net.ipv6.conf.$IFACE.router_solicitation_delay=0
+                pre-up sysctl -w net.ipv6.conf.$IFACE.router_solicitation_interval=1
+                pre-up sysctl -w net.ipv6.conf.$IFACE.optimistic_dad=1
+
+            file /etc/network/interfaces.d/11-ilnp_interfaces can contain the following:
+
+            #enp5s0f0 conf
+            auto enp5s0f0
+            iface enp5s0f0 inet manual
+            iface enp5s0f0 inet6 auto inherits ilnp
+
+            #enp6s0f0 conf
+            auto enp6s0f0
+            iface enp6s0f0 inet manual
+            iface enp6s0f0 inet6 auto inherits ilnp
+
+            #enp6s0f1 conf
+            auto enp6s0f1
+            iface enp6s0f1 inet manual
+            iface enp6s0f1 inet6 auto inherits ilnp
+
+4.0 Configure interface offloading settings.
+
+    4.1 Manually, general format:
+
+        ethtool -K <interface> gso off gro off tso off tx off rx off
+
+        e.g. for interface enp5s0f0:
+
+        $# ethtool -K enp5s0f0 gso off gro off tso off tx off rx off
+
+    4.2 Automatically, on boot or restart of network service:
+        dd to earlier file: /etc/network/interfaces.d/00-ilnp_sysctl.conf
+        within the iface ilnp inet6 audo clause:
+
+            offload-tx  off
+            offload-rx  off
+            offload-tso off
+            offload-gso off
+            offload-gro off
+
+        This will apply to all interfaces that inherit the ILNP interface
+        configuration.
+
+5.0 Test connection using ping6:
+    e.g.
+
+    ilnp-host-a1 $# ping6 ilnp-host-a2
+
+
+6.0 After setting up multiple interfaces, start ping6 with one of the names
+    (as in 5.0), then switch interfaces using ifup to bring up a new interface
+    and use ifdown to take down the old interface to show "movement" across
+    interfaces.
+
+    Example:
+    /etc/network/interfaces.d/00-ilnp_sysctl.conf:
+
+    iface ilnp inet6 auto
+        pre-up sysctl -w net.ipv4.ping_group_range="0 429436729"
+        pre-up sysctl -w net.ipv6.conf.$IFACE.router_solicitation_delay=0
+        pre-up sysctl -w net.ipv6.conf.$IFACE.router_solicitation_interval=1
+        pre-up sysctl -w net.ipv6.conf.$IFACE.optimistic_dad=1
+        offload-tx  off
+        offload-rx  off
+        offload-tso off
+        offload-gso off
+        offload-gro off
+
+7.0 Known issues:
+    - With ping6, the first ping packet will not produce a response, only
+      the second packet and onwards works correctly.
+
+----
+
+Please see papers (available via https://ilnp.st-andrews.ac.uk/) for network
+topologies we have conducted experiments on.
+
+/EOF

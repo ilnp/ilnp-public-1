@@ -1,0 +1,59 @@
+ILNP code change summary information for ilnp-public-1
+06 September 2019
+
+Copyright (C) 2019 Ryo Yanagida and Saleem N. Bhatti.
+
+ILNP modifications are Copyright 2019 (C) Saleem N. Bhatti, Ryo Yanagida,
+Khawar Shehzad, and Ditchaphong Phoomikiatissak.
+
+KERNEL - ilnp-public-1
+======================
+
+Based on Linux kernel version 4.9.52, the following kernel files have been
+modified:
+
+  ./include/linux/skbuff.h
+  ./include/linux/icmpv6.h
+  ./include/uapi/linux/in6.h
+  ./include/uapi/linux/netlink.h
+  ./include/net/ip6_checksum.h
+  ./include/net/sock.h
+  ./Makefile
+  ./net/ipv4/tcp_output.c
+  ./net/ipv4/tcp.c
+  ./net/ipv6/ip6_checksum.c
+  ./net/ipv6/addrconf.c
+  ./net/ipv6/exthdrs.c
+  ./net/ipv6/af_inet6.c
+  ./net/ipv6/route.c
+  ./net/ipv6/ip6_input.c
+  ./net/ipv6/ip6_output.c
+  ./net/ipv6/tcp_ipv6.c
+  ./net/ipv6/udp.c
+  ./net/ipv6/inet6_hashtables.c
+  ./net/ipv6/datagram.c
+  ./net/ipv6/ndisc.c
+  ./net/ipv6/icmp.c
+  ./net/ipv6/Makefile
+  ./net/ipv6/raw.c
+
+The following two files are new:
+
+  ./include/net/ilnp6.h
+  ./net/ipv6/ilnp6.c
+
+The following files may have been modified for debugging purposes only:
+
+  ./include/net/dst.h
+  ./include/net/ip6_route.h
+  ./net/core/dev.c
+  ./net/core/neighbour.c
+
+GLIBC - ilnp-glibc-1
+====================
+
+Based on glibc v2.24, the only file that changes is:
+
+  ./nss/nss_files/files-hosts.c
+
+/EOF

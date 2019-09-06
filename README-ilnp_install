@@ -1,0 +1,46 @@
+ILNP guideline node installation instructions for
+ilnp-public-1 and ilnp-glibc-1
+
+06 September 2019
+
+Copyright (C) 2019 Ryo Yanagida and Saleem N. Bhatti.
+
+Requirements:
+- amd64 compatible PC
+- Debian 9.9 stretch installation
+
+Best to install this without the desktop/client infrastructure to avoid
+clashes of file-based network configuration with the NetworkManager. You can deselect this  during the installation
+
+- glibc 2.24 with ILNPv6 NID,L64 parsing capabilities (.deb packages)
+- ILNPv6 Enabled Linux 4.9 kernel (.deb packages)
+
+- Standard network tools: ethtool, ping6, ip
+
+Recommended tools (optional):
+- General admin tools: sudo (recommended)
+- Network Tools: tcpdump / tshark, iperf
+
+- Closed/testbed IPv6 networks with IPv6 RAs configured as follows:
+    - Short RA interval, e.g. 3-5 seconds
+    - Short RA lifetime settings (2x or 3x RA interval)
+  Example topologies in our papers, please see:
+      https://ilnp.github.io/ilnp/ilnp-public-1
+
+Procedure:
+
+1.0 Install Debian 9.9, along with tools as suggested above.
+
+    1.1 We have used installations without a desktop, for easy, and to avoid
+    conflicts with NetworkManager.
+
+2.0 Install ILNPv6 enabled Linux kernel using .deb packages provided
+    # dpkg -i ilnp-public-1.deb
+
+3.0 Install the modified version of glibc:
+    # dpkg -i ilnp-glibc-1.deb
+
+4.0 Reboot with the new kernel and glibc.
+    4.1 You may need to set grub-reboot, or select the correct kernel at boot time.
+
+/EOF
