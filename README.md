@@ -38,6 +38,8 @@ There are two parts to the software:
 
 Both are needed. First, get both .deb files linked above. Install them both, e.g. `# dpkg -i ilnp*.deb`. Reboot, and then configure using the instructions in README-ilnp_configure.
 
+Source github repositories: [glibc patch - https://github.com/ilnp/ilnp-glibc-1](https://github.com/ilnp/ilnp-glibc-1) and [kernel - https://github.com/ilnp/ilnp-public-1](https://github.com/ilnp/ilnp-public-1).
+
 ## Thank you
 
 My thanks to you for your interest in [ILNP](https://ilnp.cs.st-andrews.ac.uk/)! I hope you enjoy trying it out.
