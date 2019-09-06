@@ -11,7 +11,7 @@ In the text below, '$#' is the prompt.
 
     $# ethtool -K <interface> gso off gro off tso off tx off rx off sg off tx-gre-csum-segmentation off tx-gre-segmentation off tx-gso-partial off
 
-		1.1 (optional) /etc/network/interfaces can have offloading setting set -> ifup must be used to take effect
+    1.1 (optional) /etc/network/interfaces can have offloading setting set -> ifup must be used to take effect
 
     1.2 Disable privacy extensions e.g. with NetworkManager installed, configure NetworkManager.conf [connection] clause to set
       ipv6.ip6_privacy=0
@@ -136,7 +136,8 @@ In the text below, '$#' is the prompt.
 
 ----
 
-Please see papers (available via https://ilnp.st-andrews.ac.uk/) for network
-topologies we have conducted experiments on.
+Please see papers (available via https://ilnp.github.io/ilnp-public-1) for
+network topologies we have conducted experiments on.
 
 /EOF
+
