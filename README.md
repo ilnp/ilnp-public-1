@@ -33,10 +33,10 @@ I continue to seek funding for progressing ILNP in various ways. So my intention
 
 There are two parts to the software:
 
-1. A modifictaion to `glibc` ([here - ilnp-glibc-1](https://github.com/ilnp/ilnp-glibc-1)) so that names for nodes in `/etc/hosts` can be mapped to ILNP Identifier-Locator Vector (I-LV) values, and passed up to applications in `struct addrinfo` via calls to `getaddrinfo(3)`.
-2. Extensions to the Linux kernel v4.9 LTS ([here - ilnp-public-1](https://github.com/ilnp/ilnp-public-1)) to implement the ILNP functionality.
+1. A modifictaion to `glibc` ([.deb here - ilnp-glibc-1](https://github.com/ilnp/ilnp-glibc-1/ilnp-glibc-1.deb)) so that names for nodes in `/etc/hosts` can be mapped to ILNP Identifier-Locator Vector (I-LV) values, and passed up to applications in `struct addrinfo` via calls to `getaddrinfo(3)`.
+2. Extensions to the Linux kernel v4.9 LTS ([.deb file here - ilnp-public-1](https://github.com/ilnp/ilnp-public-1/ilnp-public-1.deb)) to implement the ILNP functionality.
 
-Both are needed. First, get the modified version of `glibc` in ilnp-glibc-1, compile it, and install it. Then, build the kernel in ilnp-public-1, using the new version of `glibc`.
+Both are needed. First, get both .deb files linked above. Install them both, e.g. `# dpkg -i ilnp*.deb`. Reboot, and then configure using the instructions in README-ilnp_configure.
 
 ## Thank you
 
