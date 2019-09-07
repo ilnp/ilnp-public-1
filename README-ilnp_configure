@@ -3,7 +3,9 @@ ILNP guideline node configuration instructions for ilnp-public-1
 
 Copyright (C) 2019 Ryo Yanagida and Saleem N. Bhatti.
 
-First, install Debian 9.9 as described in README-ilnp_install.
+First, install Debian 9.9 as described in README-ilnp_install:
+
+  https://github.com/ilnp/ilnp-public-1/blob/master/README-ilnp_install
 
 In the text below, '$#' is the prompt.
 
