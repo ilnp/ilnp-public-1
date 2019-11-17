@@ -162,8 +162,8 @@ struct lu_msg {
       __be16		reserved;
       /* Data */
       uint64_t		l64;
-      uint32_t		prec;
-      uint32_t		lifetime;
+      uint16_t		prec;
+      uint16_t		lifetime;
 };
 
 /*Structure of LU message that has been sent and still wait for LU-ACK
