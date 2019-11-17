@@ -147,8 +147,8 @@ struct ilcc_table {
 /*Structure for LU message*/
 struct lu_data {
       uint64_t		l64;
-      uint32_t		prec;
-      uint32_t		lifetime;
+      uint16_t		prec;
+      uint16_t		lifetime;
 
 };
 
