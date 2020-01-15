@@ -566,17 +566,20 @@ static int rawv6_push_pending_frames(struct sock *sk, struct flowi6 *fl6,
 	}
 	
 	/*Test if ILNP node move - for echo request*/
+	/*icmpv6 uses the standard (vs ILNP) checksum*/
 	if (is_ilnp6(&fl6->daddr)) {
 	  	pr_debug("[ILNP] raw - Prepare to send RAW packet to ILNP host\n");
 		//ilnp6_node_move(&fl6->saddr, &fl6->daddr, &fl6->flowi6_oif);
 
-		// Backup L64 value
-		memcpy(&l64, &fl6->daddr.s6_addr[0], sizeof(fl6->daddr.s6_addr[0])*8);
-		memcpy(&l64_local, &fl6->saddr.s6_addr[0], sizeof(fl6->saddr.s6_addr[0])*8);
+		if (fl6->flowi6_proto != IPPROTO_ICMPV6) {
+			// Backup L64 value
+			memcpy(&l64, &fl6->daddr.s6_addr[0], sizeof(fl6->daddr.s6_addr[0])*8);
+			memcpy(&l64_local, &fl6->saddr.s6_addr[0], sizeof(fl6->saddr.s6_addr[0])*8);
 
-		// Remove L64 from saddr and daddr, so only NID will be used for checksum calculation
-		memset(&fl6->daddr.s6_addr[0], 0, sizeof(fl6->daddr.s6_addr[0])*8);
-		memset(&fl6->saddr.s6_addr[0], 0, sizeof(fl6->saddr.s6_addr[0])*8);
+			// Remove L64 from saddr and daddr, so only NID will be used for checksum calculation
+			memset(&fl6->daddr.s6_addr[0], 0, sizeof(fl6->daddr.s6_addr[0])*8);
+			memset(&fl6->saddr.s6_addr[0], 0, sizeof(fl6->saddr.s6_addr[0])*8);
+		}
 
 	 	sk->is_ilnp = 1;
 	}
@@ -629,7 +632,7 @@ static int rawv6_push_pending_frames(struct sock *sk, struct flowi6 *fl6,
 
 	BUG_ON(skb_store_bits(skb, offset, &csum, 2));
 
-	if (sk->is_ilnp == 1) {
+	if ((sk->is_ilnp == 1) && (fl6->flowi6_proto != IPPROTO_ICMPV6)) {
 		// Put L64 back to saddr and daddr
 		memcpy(&fl6->daddr.s6_addr[0], &l64, sizeof(fl6->daddr.s6_addr[0])*8);
 		memcpy(&fl6->saddr.s6_addr[0], &l64_local, sizeof(fl6->saddr.s6_addr[0])*8);

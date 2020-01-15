@@ -241,7 +241,7 @@ static bool opt_unrec(struct sk_buff *skb, __u32 offset)
 	return (*op & 0xC0) == 0x80;
 }
 /* Modified for ILNP by dp32 migrated by ry6.
- *
+ * FD: icmpv6 uses standard (vs ILNP) checksum.
  */
 int icmpv6_push_pending_frames(struct sock *sk, struct flowi6 *fl6,
 			       struct icmp6hdr *thdr, int len)
@@ -249,7 +249,6 @@ int icmpv6_push_pending_frames(struct sock *sk, struct flowi6 *fl6,
 	struct sk_buff *skb;
 	struct icmp6hdr *icmp6h;
 	int err = 0;
-	uint64_t l64, l64_local;
 
 	skb = skb_peek(&sk->sk_write_queue);
 	if (!skb)
@@ -258,17 +257,7 @@ int icmpv6_push_pending_frames(struct sock *sk, struct flowi6 *fl6,
 	/*Case ILNP
 	* [ILNP] migrated from 3.9x by ry6*/
 	if (sk->is_ilnp == 1) {
-	  	pr_debug("[ILNP] icmp - Send ICMPv6 to ILNP host\n");
-		//ilnp6_node_move(&fl6->saddr, &fl6->daddr, &fl6->flowi6_oif);
-
-		// Backup L64 value
-		memcpy(&l64, &fl6->daddr.s6_addr[0], sizeof(fl6->daddr.s6_addr[0])*8);
-		memcpy(&l64_local, &fl6->saddr.s6_addr[0], sizeof(fl6->saddr.s6_addr[0])*8);
-
-		// Remove L64 from saddr and daddr, so only NID will be used for checksum calculation
-		memset(&fl6->daddr.s6_addr[0], 0, sizeof(fl6->daddr.s6_addr[0])*8);
-		memset(&fl6->saddr.s6_addr[0], 0, sizeof(fl6->saddr.s6_addr[0])*8);
-
+		pr_debug("[ILNP] icmp - Send ICMPv6 to ILNP host\n");
 	}
 
 	icmp6h = icmp6_hdr(skb);
@@ -295,12 +284,6 @@ int icmpv6_push_pending_frames(struct sock *sk, struct flowi6 *fl6,
 						      &fl6->daddr,
 						      len, fl6->flowi6_proto,
 						      tmp_csum);
-	}
-
-	if (sk->is_ilnp == 1) {
-		// Put L64 back to saddr and daddr
-		memcpy(&fl6->daddr.s6_addr[0], &l64, sizeof(fl6->daddr.s6_addr[0])*8);
-		memcpy(&fl6->saddr.s6_addr[0], &l64_local, sizeof(fl6->saddr.s6_addr[0])*8);
 	}
 	ip6_push_pending_frames(sk);
 out:
@@ -795,6 +778,7 @@ out:
 /*
  *	Handle icmp messages
  *	[INP] Modified by dp32 in linux 3x migrated to 4x by ry6
+ *	FD: icmpv6 uses standard (vs ILNP) checksum
  */
 
 static int icmpv6_rcv(struct sk_buff *skb)
@@ -805,7 +789,6 @@ static int icmpv6_rcv(struct sk_buff *skb)
 	struct icmp6hdr *hdr;
 	u8 type;
 	bool success = false;
-	uint64_t l64, l64_local;
 	pr_debug("[ipv6/icmp.c] icmpv6_rcv: -- start -- \n");
 	if (!xfrm6_policy_check(NULL, XFRM_POLICY_IN, skb)) {
 		struct sec_path *sp = skb_sec_path(skb);
@@ -834,14 +817,6 @@ static int icmpv6_rcv(struct sk_buff *skb)
 
 	if (skb->is_ilnp == 1) {
 		pr_debug("[ILNP] icmp - Receive ICMPv6 from ILNP host\n");
-
-		// Backup L64 value
-		memcpy(&l64, &daddr->s6_addr[0], sizeof(daddr->s6_addr[0])*8);
-		memcpy(&l64_local, &saddr->s6_addr[0], sizeof(saddr->s6_addr[0])*8);
-
-		// Remove L64 from saddr and daddr, so only NID will be used for checksum calculation
-		memset(&daddr->s6_addr[0], 0, sizeof(daddr->s6_addr[0])*8);
-		memset(&saddr->s6_addr[0], 0, sizeof(saddr->s6_addr[0])*8);
 	}
 
 
@@ -849,11 +824,6 @@ static int icmpv6_rcv(struct sk_buff *skb)
 		net_dbg_ratelimited("ICMPv6 checksum failed [%pI6c > %pI6c]\n",
 				    saddr, daddr);
 		goto csum_error;
-	}
-	if (skb->is_ilnp == 1) {
-		// Put L64 back to saddr and daddr
-		memcpy(&daddr->s6_addr[0], &l64, sizeof(daddr->s6_addr[0])*8);
-		memcpy(&saddr->s6_addr[0], &l64_local, sizeof(saddr->s6_addr[0])*8);
 	}
 
 	if (!pskb_pull(skb, sizeof(*hdr)))
