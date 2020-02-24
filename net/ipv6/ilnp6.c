@@ -1010,20 +1010,20 @@ int send_lu(uint64_t l64, struct net_device *dev, struct in6_addr *dst, struct i
 
 	data = (struct lu_data *) skb_put(skb, data_len);
 	data->l64 = l64;
-	data->prec = L64_DEFAULT_PREC;
-	data->lifetime = L64_DEFAULT_LIFETIME;
+	data->prec = htons(L64_DEFAULT_PREC);
+	data->lifetime = htons(L64_DEFAULT_LIFETIME);
 
 	/* ICMPv6 Header*/
 	skb_push(skb, sizeof(*icmph));
 	skb_reset_transport_header(skb);
 	icmph = icmp6_hdr(skb);
 	icmph->icmp6_type = ILNP6_LOCATOR_UPDATE;
-	icmph->icmp6_code = 0;
+	if (is_ack)
+		icmph->icmp6_code = 2; //LU-ACK
+	else icmph->icmp6_code = 1; //LU
 	icmph->icmp6_cksum = 0;
 	icmph->icmp6_dataun.un_data8[0] = 1; //number of locator
-	if (is_ack)
-		icmph->icmp6_dataun.un_data8[1] = 2; //LU-ACK
-	else icmph->icmp6_dataun.un_data8[1] = 1; //LU
+	icmph->icmp6_dataun.un_data8[1] = 0; //reserved
 	icmph->icmp6_dataun.un_data8[2] = 0; //reserved
 	icmph->icmp6_dataun.un_data8[3] = 0; //reserved
 
@@ -1184,7 +1184,7 @@ int rcv_lu(struct sk_buff *skb)
       memmove(&src_nid, &ip6h->saddr.s6_addr[8], sizeof(ip6h->saddr.s6_addr[0])*8);
 
       /* Receive LU */
-      if (msg->opt == 1) {
+      if (msg->icmp6_code == 1) {
 	  pr_debug( "[ilnp6.c] rcv_lu(): Receive LU from %s\n", skb->dev->name);
 	  in_ilcc = 0;
 	  exist_l64 = 0;
@@ -1224,8 +1224,8 @@ int rcv_lu(struct sk_buff *skb)
 			      l64_entry->flag = L64_ACTIVE;
 			  }
 			  // Update lifetime
-			  l64_entry->lifetime = msg->lifetime;
-			  mod_timer(&l64_entry->timer, jiffies + msg->lifetime*HZ);
+			  l64_entry->lifetime = ntohs(msg->lifetime);
+			  mod_timer(&l64_entry->timer, jiffies + l64_entry->lifetime*HZ);
 
 
 		      }
@@ -1241,11 +1241,11 @@ int rcv_lu(struct sk_buff *skb)
 		      pr_debug( "[ilnp6.c] rcv_lu(): Add new L64 to ILCC\n");
 		      tmp_l64_entry = kmem_cache_zalloc(l64_kmem, GFP_ATOMIC);
 		      tmp_l64_entry->l64 = msg->l64;
-		      tmp_l64_entry->prec = msg->prec;
+		      tmp_l64_entry->prec = ntohs(msg->prec);
 		      tmp_l64_entry->flag = L64_ACTIVE;
-		      tmp_l64_entry->lifetime = msg->lifetime;
+		      tmp_l64_entry->lifetime = ntohs(msg->lifetime);
 		      setup_timer(&tmp_l64_entry->timer, ilcc_expired, (unsigned long)tmp_l64_entry);
-		      mod_timer(&tmp_l64_entry->timer, jiffies + msg->lifetime*HZ);
+		      mod_timer(&tmp_l64_entry->timer, jiffies + tmp_l64_entry->lifetime*HZ);
 
 		      list_add(&tmp_l64_entry->list, &ilcc_element->ilcc_info->l64_info->list);
 		  }
@@ -1259,12 +1259,12 @@ int rcv_lu(struct sk_buff *skb)
 	 /*Sender's NID not in ILCC. We add a new entry*/
 	if(!in_ilcc) {
 	    pr_debug( "[ilnp6.c] rcv_lu(): Sender not in ILCC, ignore packet\n");
-	    //add_ilcc(msg->l64,src_nid,msg->prec,msg->lifetime,skb->dev->name);
+	    //add_ilcc(msg->l64,src_nid,ntohs(msg->prec),ntohs(msg->lifetime),skb->dev->name);
 	    return 0;
 	}
 
 	/*Send LU ACK back to sender
-	  All information apart from 'opt' flag is the same (RFC 6743)*/
+	  All information apart from 'code' flag is the same (RFC 6743)*/
 
 	pr_debug( "[ilnp6.c] rcv_lu(): Send LU ACK\n");
 	src = &ip6h->daddr;
@@ -1276,7 +1276,7 @@ int rcv_lu(struct sk_buff *skb)
 
       }
       /* Receive LU ACK*/
-      else if (msg->opt == 2) {
+      else if (msg->icmp6_code == 2) {
 	  pr_debug( "[ilnp6.c] rcv_lu(): Receive LU ACK from %s from NID: %x, prefix %x\n", skb->dev->name, htonl(src_nid), htonl(msg->l64));
 
 	  /*Upddate information of active L64 in ILCC*/
@@ -1346,9 +1346,9 @@ int rcv_lu(struct sk_buff *skb)
 
 
       }
-      /*Invalid OPT*/
+      /*Invalid Code*/
       else {
-	  pr_debug( "[ilnp6.c] rcv_lu(): Invalid LU opt\n");
+	  pr_debug( "[ilnp6.c] rcv_lu(): Invalid LU code\n");
 	  return 1;
 
       }

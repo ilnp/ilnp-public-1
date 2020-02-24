@@ -77,8 +77,6 @@
 
 /*ICMPv6 type for LU*/
 #define ILNP6_LOCATOR_UPDATE 156
-//#define ILNP6_LU_INFO 16842752	//01 01 00 00: number of locator = 1, and it is LU (1)
-//#define ILNP6_LU_ACK_INFO 16908288 	//01 02 00 00: number of locator = 1, and it is LU-ACK (2)
 
 #define L64_DEFAULT_PREC 10
 #define L64_DEFAULT_LIFETIME 30 	//Life time for each L64 value 30 sec
@@ -144,11 +142,12 @@ struct ilcc_table {
       struct ilnp_ilcc		*ilcc_info;
 };
 
+/* FD: modified to comply to RFC 6743 */
 /*Structure for LU message*/
 struct lu_data {
       uint64_t		l64;
-      uint32_t		prec;
-      uint32_t		lifetime;
+      uint16_t		prec;
+      uint16_t		lifetime;
 
 };
 
@@ -158,12 +157,12 @@ struct lu_msg {
       __u8		icmp6_code;
       __sum16		icmp6_cksum;
       __u8		num_loc;
-      __u8		opt;
-      __be16		reserved;
+      __u8		reserved8;
+      __be16		reserved16;
       /* Data */
       uint64_t		l64;
-      uint32_t		prec;
-      uint32_t		lifetime;
+      uint16_t		prec;
+      uint16_t		lifetime;
 };
 
 /*Structure of LU message that has been sent and still wait for LU-ACK
